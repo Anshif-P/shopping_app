@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/util/constance/text_style.dart';
 import 'package:shopping_app/util/validation/form_validation.dart';
+import 'package:shopping_app/view/screen_signup.dart';
 import 'package:shopping_app/widget/buttom_widget.dart';
 import 'package:shopping_app/widget/divider_widget.dart';
 import 'package:shopping_app/widget/text_feild_widget.dart';
+
+import '../network/auth_fnc/firbase_auth.dart';
 
 class ScreenLogIn extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -37,7 +40,7 @@ class ScreenLogIn extends StatelessWidget {
                     height: 20,
                   ),
                   Text(
-                    'Welcome To Shopyfy',
+                    'Welcome To Shopfy',
                     style: AppText.largeDark,
                   ),
                   const SizedBox(
@@ -61,11 +64,11 @@ class ScreenLogIn extends StatelessWidget {
                     height: 15,
                   ),
                   TextFieldWidget(
-                    controller: emailController,
+                    controller: passwordController,
                     hintText: 'Password',
                     icon: Icons.account_circle_outlined,
                     text: '',
-                    validator: (value) => Validations.emailValidation(value),
+                    validator: (value) => Validations.emtyValidation(value),
                   ),
                   const SizedBox(
                     height: 15,
@@ -101,7 +104,8 @@ class ScreenLogIn extends StatelessWidget {
                   ),
                   ButtonWidget(
                     colorCheck: true,
-                    onpressFunction: () => logInFnc,
+                    onpressFunction: () => logInFnc(
+                        context, emailController.text, passwordController.text),
                     text: 'Sing in',
                     borderCheck: false,
                   ),
@@ -115,7 +119,9 @@ class ScreenLogIn extends StatelessWidget {
                   ButtonWidget(
                     loadingCheck: false,
                     colorCheck: false,
-                    onpressFunction: () => logInFnc,
+                    onpressFunction: () => Navigator.of(context)
+                        .pushReplacement(MaterialPageRoute(
+                            builder: (context) => ScreenSignUp())),
                     text: 'Sing Up',
                     borderCheck: true,
                   ),
@@ -128,7 +134,9 @@ class ScreenLogIn extends StatelessWidget {
     );
   }
 
-  logInFnc(BuildContext context) {
-    if (loginFormKey.currentState!.validate()) {}
+  logInFnc(BuildContext context, String mail, String password) async {
+    if (loginFormKey.currentState!.validate()) {
+      await AuthServices.signinUser(mail, password, context);
+    }
   }
 }

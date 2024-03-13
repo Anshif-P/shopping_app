@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_app/network/auth_fnc/firbase_auth.dart';
 import 'package:shopping_app/util/constance/text_style.dart';
 import 'package:shopping_app/util/validation/form_validation.dart';
+import 'package:shopping_app/view/screen_login.dart';
 import 'package:shopping_app/widget/buttom_widget.dart';
 import 'package:shopping_app/widget/divider_widget.dart';
 import 'package:shopping_app/widget/text_feild_widget.dart';
@@ -57,7 +59,7 @@ class ScreenSignUp extends StatelessWidget {
                     hintText: 'Username',
                     icon: Icons.account_circle_outlined,
                     text: '',
-                    validator: (value) => Validations.emailValidation(value),
+                    validator: (value) => Validations.emtyValidation(value),
                   ),
                   const SizedBox(
                     height: 15,
@@ -88,7 +90,7 @@ class ScreenSignUp extends StatelessWidget {
                     icon: Icons.account_circle_outlined,
                     text: '',
                     validator: (value) => Validations.conformPasswordValidation(
-                        value, passwordController),
+                        value, passwordController.text),
                   ),
                   const SizedBox(
                     height: 15,
@@ -98,8 +100,12 @@ class ScreenSignUp extends StatelessWidget {
                   ),
                   ButtonWidget(
                     colorCheck: true,
-                    onpressFunction: () => signUpFnc(),
-                    text: 'Sing in',
+                    onpressFunction: () => signUpFnc(
+                        context,
+                        emailController.text,
+                        userNameController.text,
+                        passwordController.text),
+                    text: 'Sing Up',
                     borderCheck: false,
                   ),
                   const SizedBox(
@@ -112,8 +118,10 @@ class ScreenSignUp extends StatelessWidget {
                   ButtonWidget(
                     loadingCheck: false,
                     colorCheck: false,
-                    onpressFunction: () => signUpFnc,
-                    text: 'Sing Up',
+                    onpressFunction: () => Navigator.of(context)
+                        .pushReplacement(MaterialPageRoute(
+                            builder: (context) => ScreenLogIn())),
+                    text: 'Sing in',
                     borderCheck: true,
                   ),
                 ],
@@ -125,5 +133,10 @@ class ScreenSignUp extends StatelessWidget {
     );
   }
 
-  signUpFnc() {}
+  signUpFnc(
+      BuildContext context, String mail, String name, String password) async {
+    if (signUpFormKey.currentState!.validate()) {
+      AuthServices.signupUser(mail, password, name, context);
+    }
+  }
 }
