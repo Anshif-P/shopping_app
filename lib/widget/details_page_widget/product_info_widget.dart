@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app/model/product_model.dart';
 import 'package:shopping_app/util/constance/colors.dart';
 import 'package:shopping_app/util/constance/text_style.dart';
-
 import 'buttom_quantity.dart';
 import 'star_widget.dart';
 
@@ -30,7 +29,7 @@ class ProductInfoWidget extends StatelessWidget {
                   ),
                 ),
                 const Expanded(flex: 1, child: SizedBox()),
-                QuantityButtonWidget(),
+                const QuantityButtonWidget(),
               ],
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopping_app/controller/total_amount_bloc/total_amount_bloc.dart';
 import '../../util/constance/colors.dart';
 import '../../util/constance/text_style.dart';
 
@@ -26,10 +27,17 @@ class CheckOutButtomWidget extends StatelessWidget {
                             'Total:',
                             style: AppText.mediumdark,
                           ),
-                          Text(
-                            '₹119.00',
-                            style: AppText.mediumdark,
-                          )
+                          BlocBuilder<TotalAmountBloc, TotalAmountState>(
+                              builder: (context, state) {
+                            if (state
+                                is CartedItemTotalAmountFetchedSuccessState) {
+                              return Text(
+                                '₹${state.totalAmount.toStringAsFixed(2)}',
+                                style: AppText.mediumdark,
+                              );
+                            }
+                            return const SizedBox();
+                          })
                         ],
                       ),
                       Row(
@@ -55,8 +63,8 @@ class CheckOutButtomWidget extends StatelessWidget {
                           shape: MaterialStatePropertyAll(
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5))),
-                          backgroundColor:
-                              MaterialStatePropertyAll(AppColor.primaryColor)),
+                          backgroundColor: const MaterialStatePropertyAll(
+                              AppColor.primaryColor)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

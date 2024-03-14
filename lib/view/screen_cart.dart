@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_app/controller/cart_bloc/cart_bloc.dart';
-import '../model/product_model.dart';
+import 'package:shopping_app/controller/total_amount_bloc/total_amount_bloc.dart';
+import 'package:shopping_app/model/cart_model.dart';
+import 'package:shopping_app/util/constance/colors.dart';
 import '../util/constance/text_style.dart';
 import '../widget/cart_widget/checkout_button_widget.dart';
 import '../widget/cart_widget/product_card_widget.dart';
 
 // ignore: must_be_immutable
 class ScreenCart extends StatelessWidget {
-  final ProductModel? data;
   ValueNotifier<bool> cartItemCheck = ValueNotifier(false);
-  ValueNotifier<int> quantity = ValueNotifier<int>(1);
-
-  ScreenCart({super.key, this.data});
-
+  ScreenCart({
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,8 +37,9 @@ class ScreenCart extends StatelessWidget {
         ),
         bottomNavigationBar: ValueListenableBuilder(
             valueListenable: cartItemCheck,
-            builder: (context, value, child) =>
-                value ? const CheckOutButtomWidget() : const SizedBox()),
+            builder: (context, value, child) {
+              return value ? const CheckOutButtomWidget() : const SizedBox();
+            }),
         body: SizedBox(
           width: double.maxFinite,
           child: Column(
@@ -58,16 +59,28 @@ class ScreenCart extends StatelessWidget {
                           separatorBuilder: (context, index) => const SizedBox(
                                 height: 10,
                               ),
-                          itemBuilder: (context, index) => ProductCartWidget(
-                              data: state.productList[index],
-                              index: index,
-                              onPressed: (value) {
-                                // Handle onPressed event here
-                                print("Quantity changed to: $value");
-                                // You can also update the quantityValue if needed
-                                // quantityValue = value;
-                              },
-                              quantityValue: 1));
+                          itemBuilder: (context, index) {
+                            final data = state.productList[index];
+                            return ProductCartWidget(
+                                data: state.productList[index],
+                                index: index,
+                                onPressed: (value) {
+                                  final newCartModel = CartItem(
+                                      id: data.id,
+                                      productId: data.productId,
+                                      productName: data.productName,
+                                      productImage: data.productImage,
+                                      price: data.price,
+                                      quantity: value);
+                                  context.read<CartBloc>().add(
+                                      UpdateQuantityEvent(
+                                          cartItemModel: newCartModel));
+                                  context
+                                      .read<TotalAmountBloc>()
+                                      .add(GetCartItemsTotolAmount());
+                                },
+                                quantityValue: data.quantity);
+                          });
                     }
                     return Center(
                       child: Text(

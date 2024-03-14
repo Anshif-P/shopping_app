@@ -12,7 +12,7 @@ class ProductCartWidget extends StatelessWidget {
 
   final Function(int) onPressed;
   final int quantityValue;
-  ProductCartWidget(
+  const ProductCartWidget(
       {super.key,
       required this.data,
       required this.index,
@@ -111,7 +111,7 @@ class ProductCartWidget extends StatelessWidget {
                         Expanded(
                             child: QuantityCounterWidget(
                           onPressed: onPressed,
-                          quantityValue: 1,
+                          quantityValue: quantityValue,
                         )),
                       ],
                     )

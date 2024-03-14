@@ -10,8 +10,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc() : super(CartInitial()) {
     on<AddProductToCartEvent>(addProductToCartEvent);
     on<GetCartedProduct>(getCartedProduct);
+    on<UpdateQuantityEvent>(updateQuantityEvent);
   }
-
+  List<CartItem> cartItem = [];
   FutureOr<void> addProductToCartEvent(
       AddProductToCartEvent event, Emitter<CartState> emit) async {
     CartItem cartItem = productToCartItem(event.data, event.quantity);
@@ -21,7 +22,12 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   FutureOr<void> getCartedProduct(
       GetCartedProduct event, Emitter<CartState> emit) async {
-    List<CartItem> cartItem = await DatabaseHelper.instance.getAllCartItems();
+    cartItem = await DatabaseHelper.instance.getAllCartItems();
     emit(CartFetchedSuccessState(productList: cartItem));
+  }
+
+  FutureOr<void> updateQuantityEvent(
+      UpdateQuantityEvent event, Emitter<CartState> emit) async {
+    await DatabaseHelper.instance.updateCartItemQuantity(event.cartItemModel);
   }
 }

@@ -27,13 +27,6 @@ class DividerWidget extends StatelessWidget {
             height: 1,
           ),
         ),
-        // Divider(
-        //   color: Color(0xFFDADADA),
-        //   height: 25,
-        //   thickness: 1,
-        //   indent: 5,
-        //   endIndent: 5,
-        // ),
       ],
     );
   }

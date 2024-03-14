@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-// ignore: must_be_immutable
 class StarWidget extends StatelessWidget {
   const StarWidget({
     Key? key,
@@ -35,7 +34,5 @@ class StarWidget extends StatelessWidget {
     );
   }
 
-  void _handleRatingUpdate(double rating) {
-    // print(widget.rating.value.toString());
-  }
+  void _handleRatingUpdate(double rating) {}
 }

@@ -4,10 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_app/controller/product_bloc/product_bloc.dart';
 import 'package:shopping_app/util/constance/colors.dart';
 import 'package:shopping_app/util/constance/text_style.dart';
-import 'package:shopping_app/view/screen_home.dart';
 import 'package:shopping_app/view/screen_login.dart';
-
 import '../controller/cart_bloc/cart_bloc.dart';
+import '../controller/total_amount_bloc/total_amount_bloc.dart';
 import 'screen_parent.dart';
 
 class ScreenSplash extends StatefulWidget {
@@ -64,6 +63,8 @@ class _ScreenSplashState extends State<ScreenSplash> {
   }
 
   userLoginValidation(BuildContext context) async {
+    context.read<TotalAmountBloc>().add(GetCartItemsTotolAmount());
+    context.read<CartBloc>().add(GetCartedProduct());
     context.read<ProductBloc>().add(GetProducttsEvent());
     await Future.delayed(const Duration(seconds: 3));
     FirebaseAuth.instance.authStateChanges().listen((user) {

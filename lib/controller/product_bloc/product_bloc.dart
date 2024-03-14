@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:shopping_app/model/product_model.dart';
 import 'package:shopping_app/repositories/product_repo.dart';

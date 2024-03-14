@@ -1,8 +1,5 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, depend_on_referenced_packages
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../util/constance/colors.dart';
 import 'screen_cart.dart';
 import 'screen_home.dart';
@@ -13,7 +10,7 @@ class ScreenParentNavigation extends StatelessWidget {
   final pageNotifier = ValueNotifier(0);
 
   final List<Widget> _screens = [
-    ScreenHome(),
+    const ScreenHome(),
     ScreenCart(),
   ];
   @override
@@ -36,11 +33,11 @@ class NavigationBar extends StatelessWidget {
         valueListenable: pageNotifier,
         builder: (context, value, _) {
           return Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 color: Colors.white,
                 border: Border(
                     top: BorderSide(color: AppColor.lightGreyColor, width: 1))),
-            padding: EdgeInsets.only(top: 4),
+            padding: const EdgeInsets.only(top: 4),
             height: 60,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,14 +74,14 @@ class NavigationBar extends StatelessWidget {
         child: SizedBox(
           child: Column(
             children: [
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               hideIcon
-                  ? SizedBox(height: 25)
+                  ? const SizedBox(height: 25)
                   : Icon(
                       icon,
                       color: isSelected ? Colors.black : Colors.grey.shade500,
                     ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
                 label,
                 style: TextStyle(

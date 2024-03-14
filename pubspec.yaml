@@ -47,6 +47,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   path: ^1.8.3
   sqflite: ^2.3.2
+  tab_indicator_styler: ^2.0.0
  
 
 

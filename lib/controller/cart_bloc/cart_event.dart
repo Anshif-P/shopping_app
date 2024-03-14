@@ -9,3 +9,8 @@ class AddProductToCartEvent extends CartEvent {
 }
 
 class GetCartedProduct extends CartEvent {}
+
+class UpdateQuantityEvent extends CartEvent {
+  CartItem cartItemModel;
+  UpdateQuantityEvent({required this.cartItemModel});
+}

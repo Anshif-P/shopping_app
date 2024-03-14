@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_app/util/constance/colors.dart';
 import 'package:shopping_app/util/constance/text_style.dart';
 
-import '../widget/show_dialog.dart';
+import '../widget/comman/show_dialog.dart';
 
 class ScreenDrawer extends StatelessWidget {
   const ScreenDrawer({super.key});
@@ -30,9 +29,9 @@ class ScreenDrawer extends StatelessWidget {
                     children: [
                       const SizedBox(height: 8),
                       Text('Anshif', style: AppText.mediumdark),
-                      Text(
+                      const Text(
                         'anshif@gmail.com',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 14,
                           color: Color(0xFFB5B5B5),
@@ -45,22 +44,18 @@ class ScreenDrawer extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
-            leading: const Icon(Icons.info_outline),
-            title: const Text('App info'),
-            onTap: () {},
+          const ListTile(
+            leading: Icon(Icons.info_outline),
+            title: Text('App info'),
           ),
-          ListTile(
-            leading: const Icon(Icons.lock),
-            title: const Text('Privacy & policy'),
-            onTap: () {},
+          const ListTile(
+            leading: Icon(Icons.lock),
+            title: Text('Privacy & policy'),
           ),
-          ListTile(
-            leading: const Icon(Icons.question_mark),
-            title: const Text('Help'),
-            onTap: () {},
+          const ListTile(
+            leading: Icon(Icons.question_mark),
+            title: Text('Help'),
           ),
-
           ListTile(
             leading: const Icon(
               Icons.logout,
@@ -78,7 +73,7 @@ class ScreenDrawer extends StatelessWidget {
                 },
               );
             },
-          ), // ... Other list tiles ...
+          ),
         ],
       ),
     );

@@ -1,6 +1,5 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-
 import '../../model/cart_model.dart';
 
 class DatabaseHelper {
@@ -30,7 +29,25 @@ class DatabaseHelper {
 
   Future<int> insertCartItem(CartItem cartItem) async {
     final db = await database;
-    return await db.insert('cart', cartItem.toMap());
+
+    final List<Map<String, dynamic>> existingProducts = await db.query(
+      'cart',
+      where: 'productId = ?',
+      whereArgs: [cartItem.productId],
+    );
+
+    if (existingProducts.isNotEmpty) {
+      final int existingQuantity = existingProducts.first['quantity'];
+      final int newQuantity = cartItem.quantity + existingQuantity;
+      return await db.update(
+        'cart',
+        {'quantity': newQuantity},
+        where: 'productId = ?',
+        whereArgs: [cartItem.productId],
+      );
+    } else {
+      return await db.insert('cart', cartItem.toMap());
+    }
   }
 
   Future<List<CartItem>> getAllCartItems() async {
@@ -56,5 +73,14 @@ class DatabaseHelper {
       where: 'id = ?',
       whereArgs: [cartItem.id],
     );
+  }
+
+  Future<double> getTotalCartAmount() async {
+    final db = await database;
+    final List<Map<String, dynamic>> result = await db.rawQuery(
+      'SELECT SUM(price * quantity) AS total FROM cart',
+    );
+    final totalAmount = result.first['total'] ?? 0;
+    return totalAmount.toDouble();
   }
 }

@@ -31,14 +31,13 @@ class ButtonWidget extends StatelessWidget {
             elevation: MaterialStateProperty.all(0),
             side: borderCheck
                 ? MaterialStateProperty.all<BorderSide>(const BorderSide(
-                    color: Color(0xFFD1D1D1), // Set your desired border color
-                    width: 1, // Set the border width
+                    color: Color(0xFFD1D1D1),
+                    width: 1,
                   ))
                 : null,
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.circular(12), // Adjust the radius as needed
+                borderRadius: BorderRadius.circular(12),
               ),
             ),
             backgroundColor: MaterialStateProperty.all(

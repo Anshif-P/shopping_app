@@ -29,7 +29,7 @@ class LogoutDialog extends StatelessWidget {
           child: const Text(
             'Cancel',
             style: TextStyle(
-              color: Color.fromARGB(255, 138, 135, 135),
+              color: AppColor.primaryColor,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -37,6 +37,7 @@ class LogoutDialog extends StatelessWidget {
         TextButton(
           onPressed: () async {
             await FirebaseAuth.instance.signOut();
+            // ignore: use_build_context_synchronously
             Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => ScreenLogIn()));
           },

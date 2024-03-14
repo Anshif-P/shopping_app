@@ -5,7 +5,7 @@ class CartItem {
   final int productId;
   final String productName;
   final String productImage;
-  final double price;
+  final dynamic price;
   int quantity;
 
   CartItem({

@@ -1,28 +1,31 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:shopping_app/util/constance/colors.dart';
 import 'package:shopping_app/util/constance/text_style.dart';
 
-class TextFieldWidget extends StatelessWidget {
-  final String text;
+// ignore: must_be_immutable
+class TextFieldWidget extends StatefulWidget {
   final String hintText;
   final TextEditingController controller;
   final IconData icon;
-  final bool textFieldSizeCheck;
+  final bool textVisibility;
   final FormFieldValidator validator;
-  final bool keybordType;
+  bool isObscure = true;
 
-  const TextFieldWidget(
-      {super.key,
-      required this.text,
-      required this.hintText,
-      this.keybordType = false,
-      required this.controller,
-      required this.icon,
-      required this.validator,
-      this.textFieldSizeCheck = false});
+  TextFieldWidget({
+    super.key,
+    required this.hintText,
+    required this.controller,
+    required this.icon,
+    required this.validator,
+    this.isObscure = false,
+    this.textVisibility = false,
+  });
 
+  @override
+  State<TextFieldWidget> createState() => _TextFieldWidgetState();
+}
+
+class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -30,9 +33,9 @@ class TextFieldWidget extends StatelessWidget {
         onEditingComplete: () {
           FocusScope.of(context).nextFocus();
         },
-        keyboardType: keybordType ? TextInputType.number : null,
-        validator: validator,
-        controller: controller,
+        validator: widget.validator,
+        controller: widget.controller,
+        obscureText: widget.isObscure,
         decoration: InputDecoration(
           isDense: true,
           constraints: const BoxConstraints(maxHeight: 70, minHeight: 35),
@@ -52,10 +55,22 @@ class TextFieldWidget extends StatelessWidget {
             borderSide: const BorderSide(color: AppColor.grey),
             borderRadius: BorderRadius.circular(10.0),
           ),
-          prefixIcon: Icon(icon, color: AppColor.lightGreyColor),
+          prefixIcon: Icon(widget.icon, color: AppColor.lightGreyColor),
+          suffixIcon: widget.textVisibility
+              ? IconButton(
+                  icon: Icon(widget.isObscure
+                      ? Icons.visibility_off
+                      : Icons.visibility),
+                  onPressed: () {
+                    setState(() {
+                      widget.isObscure = !widget.isObscure;
+                    });
+                  },
+                )
+              : null,
           contentPadding:
               const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-          hintText: hintText,
+          hintText: widget.hintText,
           hintStyle: AppText.mediumGrey,
         ),
       ),

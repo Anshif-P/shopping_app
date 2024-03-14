@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_app/controller/cart_bloc/cart_bloc.dart';
 import 'package:shopping_app/model/product_model.dart';
-import 'package:shopping_app/util/constance/colors.dart';
 import 'package:shopping_app/util/constance/text_style.dart';
 
 class AddCartPriceWidget extends StatelessWidget {
@@ -12,7 +11,7 @@ class AddCartPriceWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColor.backgroundColor,
+      color: Colors.white,
       height: 80,
       child: Padding(
         padding: const EdgeInsets.all(15),
@@ -41,7 +40,7 @@ class AddCartPriceWidget extends StatelessWidget {
                 onPressed: () {
                   context
                       .read<CartBloc>()
-                      .add(AddProductToCartEvent(data: data, quantity: 0));
+                      .add(AddProductToCartEvent(data: data, quantity: 1));
                   ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Product added to cart')));
                   context.read<CartBloc>().add(GetCartedProduct());
