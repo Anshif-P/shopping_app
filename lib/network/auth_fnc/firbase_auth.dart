@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_app/view/screen_home.dart';
+import 'package:shopping_app/view/screen_parent.dart';
+import '../../controller/cart_bloc/cart_bloc.dart';
 import 'firebase_fnc.dart';
 
 class AuthServices {
@@ -45,8 +48,10 @@ class AuthServices {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('You are Logged in')));
       // ignore: use_build_context_synchronously
+      context.read<CartBloc>().add(GetCartedProduct());
+      // ignore: use_build_context_synchronously
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const ScreenHome()));
+          MaterialPageRoute(builder: (context) => ScreenParentNavigation()));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         // ignore: use_build_context_synchronously

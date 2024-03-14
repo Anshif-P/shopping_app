@@ -8,6 +8,12 @@ class AppText {
         fontFamily: 'Poppins',
         color: Colors.grey[500],
       );
+  static TextStyle get standerdSize =>
+      const TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
+
+  static TextStyle get standerdSizeWhite => const TextStyle(
+      fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white);
+
   static TextStyle get smallDark => const TextStyle(
         fontSize: 12,
         color: AppColor.textPrimary,
@@ -56,4 +62,11 @@ class AppText {
         fontWeight: FontWeight.w600,
         color: AppColor.textPrimary,
       );
+
+  static TextStyle get toSmallLineThrough => const TextStyle(
+      decoration: TextDecoration.lineThrough,
+      decorationColor: Colors.grey,
+      color: Colors.grey,
+      fontSize: 10,
+      overflow: TextOverflow.ellipsis);
 }

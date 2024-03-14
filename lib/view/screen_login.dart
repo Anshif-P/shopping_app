@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/util/constance/text_style.dart';
 import 'package:shopping_app/util/validation/form_validation.dart';
+import 'package:shopping_app/view/screen_parent.dart';
 import 'package:shopping_app/view/screen_signup.dart';
 import 'package:shopping_app/widget/buttom_widget.dart';
 import 'package:shopping_app/widget/divider_widget.dart';
@@ -121,7 +122,7 @@ class ScreenLogIn extends StatelessWidget {
                     colorCheck: false,
                     onpressFunction: () => Navigator.of(context)
                         .pushReplacement(MaterialPageRoute(
-                            builder: (context) => ScreenSignUp())),
+                            builder: (context) => ScreenParentNavigation())),
                     text: 'Sing Up',
                     borderCheck: true,
                   ),

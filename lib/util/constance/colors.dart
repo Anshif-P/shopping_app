@@ -10,6 +10,13 @@ class AppColor {
   static const grey = Colors.grey;
   static const Color lightGreyColor = Color.fromARGB(255, 186, 186, 186);
   static const Color extraLightGrey = Color(0xFFF2F2F2);
+  static List<Color> customColorsList = [
+    Colors.grey.shade200,
+    const Color.fromARGB(255, 10, 77, 132),
+    const Color.fromARGB(255, 244, 57, 44),
+    const Color.fromARGB(255, 199, 135, 9),
+    Colors.green
+  ];
 
   // static Color color(String name) {
   //   name = name.toLowerCase().trim();

@@ -7,6 +7,9 @@ import 'package:shopping_app/util/constance/text_style.dart';
 import 'package:shopping_app/view/screen_home.dart';
 import 'package:shopping_app/view/screen_login.dart';
 
+import '../controller/cart_bloc/cart_bloc.dart';
+import 'screen_parent.dart';
+
 class ScreenSplash extends StatefulWidget {
   const ScreenSplash({super.key});
 
@@ -65,8 +68,9 @@ class _ScreenSplashState extends State<ScreenSplash> {
     await Future.delayed(const Duration(seconds: 3));
     FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null) {
+        context.read<CartBloc>().add(GetCartedProduct());
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const ScreenHome()),
+          MaterialPageRoute(builder: (_) => ScreenParentNavigation()),
         );
       } else {
         Navigator.of(context).pushReplacement(
